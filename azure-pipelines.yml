@@ -28,7 +28,7 @@ steps:
     enableSastScan: true
     CheckmarxService: 'checkmarx-ast-connection'
     enableDependencyScan: false
-    tenantName: 'apac-truedigital-ast'
+    tenantName: 'TDG'
 
 - task: VSBuild@1
   inputs:
