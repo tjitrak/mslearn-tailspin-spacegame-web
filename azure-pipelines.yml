@@ -28,6 +28,20 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: synopsys-coverity@1
+  inputs:
+    coverityService: 'synopsys-cov-connection'
+    projectName: 'sast-demo'
+    streamName: 'sast-demo'
+    checkIssues: true
+    issueView: 'coverity-view'
+    coverityBuildDirectory: '$(Build.Repository.LocalPath)'
+    buildCommand: 'mvn -B package -DskipTests'
+    customCommandArgs: true
+    covAnalyzeArgs: '--ticker-mode none --strip-path $(Build.SourcesDirectory) --webapp-security'
+    covCommitArgs: '--ticker-mode none --scm git --description $(Build.BuildURI) --version $(Build.SourceVersion)'
+    allowUntrusted: true
+
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
